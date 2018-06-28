@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <script src="/static/js/jquery-1.12.4.min.js"></script>
+    <link rel="stylesheet" href="/static/css/add.css">
+    <link rel="stylesheet" href="/static/css/list.css">
+
+    <style>
+        .header{width: 100%; height: 60px; background-color: #336699;overflow: hidden;}
+        .menu{background-color: bisque; position: fixed; top: 60px; bottom: 0;left: 0;width: 200px;}
+        .content{ position: fixed; top: 60px;bottom: 0;right: 0; left: 200px;overflow: auto; padding: 20px;}
+
+        .menu_btn{ font-size: 18px;text-align: center; padding: 20px 0;}
+
+
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <p>{{ user.name }}</p>
+</div>
+
+<div class="container">
+    {% load my_tags %}
+    <div class="menu">
+
+        {% get_menu request %}
+
+    </div>
+
+    <div class="content">
+        {% block con %}
+
+        {% endblock con%}
+    </div>
+</div>
+
+</body>
+</html>

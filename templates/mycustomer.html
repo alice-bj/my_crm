@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block con %}
+    <h4>我的客户</h4>
+    <ul>
+        {% for customer_distrubute in customer_distrubute_list %}
+            <li>
+                {{ customer_distrubute.customer }}
+                -----{{ customer_distrubute.date|date:'Y-m-d' }}
+                -----{{ customer_distrubute.get_status_display }}
+            </li>
+        {% endfor %}
+
+    </ul>
+
+{% endblock %}

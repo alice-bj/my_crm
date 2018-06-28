@@ -1,0 +1,50 @@
+{% extends 'rbac/base.html' %}
+
+{% block con %}
+    <h4>用户列表</h4>
+
+{#    {% if "/users/add/" in permission_list %}#}
+{#    {% if "add" in request.actions %}#}
+    {% if per.add %}
+        <a href="/users/add/" class="btn btn-primary">添加用户</a>
+    {% endif %}
+
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>姓名</th>
+                <th>角色</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in user_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>
+                        {% for role in user.roles.all %}
+                        {{ role.title }}
+                        {% endfor %}
+
+                    </td>
+                    <td>
+                        {% if per.delete %}
+                             <a href="/users/delete/{{ user.pk }}/" class="btn btn-danger">删除</a>
+                        {% endif %}
+                       {% if per.edit %}
+                            <a href="/users/edit/{{ user.pk }}/" class="btn btn-warning">编辑</a>
+                       {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+
+
+        </tbody>
+    </table>
+
+
+{% endblock con%}
+

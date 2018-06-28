@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>删除页面</h3>
+<form action="" method="post">
+    {% csrf_token %}
+    <button>确认删除？</button>
+    <a href="{{ url }}">取消</a>
+
+</form>
+
+</body>
+</html>
