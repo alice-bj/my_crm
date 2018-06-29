@@ -4,6 +4,7 @@ from django.db import models
 
 from django.db import models
 
+
 class Department(models.Model):
     """
     部门表
@@ -81,8 +82,10 @@ class ClassList(models.Model):
     start_date = models.DateField(verbose_name="开班日期")
     graduate_date = models.DateField(verbose_name="结业日期", null=True, blank=True)
     memo = models.CharField(verbose_name='说明', max_length=256, blank=True, null=True, )
-    teachers = models.ManyToManyField(verbose_name='任课老师', to='UserInfo',related_name="abc",limit_choices_to={"depart__in":[1002,1005]})
-    tutor = models.ForeignKey(verbose_name='班主任', to='UserInfo', related_name='classes',limit_choices_to={"depart":1001})
+    teachers = models.ManyToManyField(verbose_name='任课老师', to='UserInfo', related_name="abc",
+                                      limit_choices_to={"depart__in": [1002, 1005]})
+    tutor = models.ForeignKey(verbose_name='班主任', to='UserInfo', related_name='classes',
+                              limit_choices_to={"depart": 1001})
 
     def __str__(self):
         return "{0}({1}期)".format(self.course.name, self.semester)
@@ -187,7 +190,7 @@ class ConsultRecord(models.Model):
     客户跟进记录
     """
     customer = models.ForeignKey(verbose_name="所咨询客户", to='Customer')
-    consultant = models.ForeignKey(verbose_name="跟踪人", to='UserInfo',limit_choices_to={"depart":1001})
+    consultant = models.ForeignKey(verbose_name="跟踪人", to='UserInfo', limit_choices_to={"depart": 1001})
     date = models.DateField(verbose_name="跟进日期", auto_now_add=True)
     note = models.TextField(verbose_name="跟进内容...")
 
@@ -224,7 +227,7 @@ class CourseRecord(models.Model):
     """
     class_obj = models.ForeignKey(verbose_name="班级", to="ClassList")
     day_num = models.IntegerField(verbose_name="节次", help_text=u"此处填写第几节课或第几天课程...,必须为数字")
-    teacher = models.ForeignKey(verbose_name="讲师", to='UserInfo',limit_choices_to={"depart_id__in":[1002,1003]})
+    teacher = models.ForeignKey(verbose_name="讲师", to='UserInfo', limit_choices_to={"depart_id__in": [1002, 1003]})
     date = models.DateField(verbose_name="上课日期", auto_now_add=True)
 
     course_title = models.CharField(verbose_name='本节课程标题', max_length=64, blank=True, null=True)
@@ -281,7 +284,7 @@ class CustomerDistrbute(models.Model):
     客户分布表
     """
     customer = models.ForeignKey("Customer", related_name="customers")
-    consultant = models.ForeignKey(verbose_name="课程顾问", to="UserInfo", limit_choices_to={"depart_id":1001})
+    consultant = models.ForeignKey(verbose_name="课程顾问", to="UserInfo", limit_choices_to={"depart_id": 1001})
     date = models.DateField()
     status_choices = (
         (1, "正在跟进"),
@@ -294,4 +297,3 @@ class CustomerDistrbute(models.Model):
 
     def __str__(self):
         return self.customer.name + ":" + self.consultant.name
-

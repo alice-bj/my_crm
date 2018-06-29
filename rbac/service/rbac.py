@@ -13,7 +13,7 @@ class ValidPermission(MiddlewareMixin):
         current_path = request.path_info
 
         # 检查 是否属于 白名单
-        valid_url_list = ["/login/", '/reg/', '/admin/.*']
+        valid_url_list = ["/login/", '/reg/','/base/', '/admin/.*']
 
         # if current_path in valid_url_list:
         #     return

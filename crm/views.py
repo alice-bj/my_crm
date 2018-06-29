@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,redirect
 
 # Create your views here.
 from rbac.models import User
@@ -15,34 +15,15 @@ def login(request):
             # 注册权限到session中
             initial_session(user,request)
 
-            return HttpResponse("登录成功")
+            # return HttpResponse("登录成功")
+            return redirect("/base/")
 
     return render(request,'login.html',locals())
 
 
-"""
-引入权限组件 - rbac
-    settings: 'rbac.apps.RbacConfig',
-    中间件： 'rbac.service.rbac.ValidPermission',
-    
-员工表UserInfo和rbac.User表关联 一对一
-    UserInfo中的用户名和密码也可删了，只留rbac.User中的用户名和密码。
-    user = models.OneToOneField("rbac.User", null=True)
-    
-    makemigrations
-    migrate
--------------------
-rbac/stark.py 注册：
-     ...
+def base(request):
+    if not request.session.get("user_id"):
+        return redirect('/login/')
 
-录入数据：
+    return render(request,'base.html')
 
--------------------  
-登录页面
-
-页面继承：
-
-
-
-
-"""
